@@ -1,0 +1,486 @@
+/* Custom Styles */
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #204b78; /* Updated to primary color */
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #102a43; /* Updated to primary-dark */
+}
+
+/* Header styles */
+.header-scrolled {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Active nav link with underline */
+.nav-link.active {
+    color: #204b78;
+    font-weight: 700;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #204b78;
+}
+
+/* Hero section overlay animation */
+.hero-overlay {
+    background: linear-gradient(135deg, rgba(26, 43, 60, 0.95) 0%, rgba(26, 43, 60, 0.7) 50%, transparent 100%);
+}
+
+/* Service cards hover effect */
+.service-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+}
+
+/* Stats counter animation */
+.counter-value {
+    transition: all 0.3s ease;
+}
+
+/* Button hover animations */
+.btn-primary {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+/* Mobile menu animation */
+#mobile-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+#mobile-menu.open {
+    max-height: 400px;
+}
+
+/* Testimonial cards */
+.testimonial-card {
+    transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: scale(1.02);
+}
+
+/* Newsletter input focus */
+.newsletter-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+/* Footer link hover */
+.footer-link {
+    position: relative;
+    display: inline-block;
+}
+
+.footer-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #0d9668;
+    transition: width 0.3s ease;
+}
+
+.footer-link:hover::after {
+    width: 100%;
+}
+
+/* Fade in animation for sections */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Disable fade animations on mobile to prevent content disappearing */
+@media (max-width: 768px) {
+    .fade-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile: Auto-show "See Details" button when cards scroll into view */
+@media (max-width: 1024px) {
+    #beef-cuts-grid > div {
+        transition: transform 0.9s ease, box-shadow 0.9s ease;
+    }
+    
+    #beef-cuts-grid > div .overflow-hidden {
+        transition: height 0.8s ease 0.3s, opacity 0.8s ease 0.3s;
+    }
+    
+    #beef-cuts-grid > div img {
+        transition: filter 0.9s ease, transform 0.9s ease;
+    }
+    
+    .mobile-card-visible .overflow-hidden {
+        height: 2.5rem !important;
+        opacity: 1 !important;
+    }
+    
+    .mobile-card-visible img {
+        filter: none !important;
+        transform: scale(1.05);
+    }
+    
+    .mobile-card-visible {
+        transform: translateY(-4px);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+}
+
+/* Loading animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* New Entry Animation for Blue Card */
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-entry {
+    animation: slideUpFade 1s ease-out forwards;
+}
+
+/* Dropdown menu animation */
+.dropdown-menu {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.group:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Icon bounce animation */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.icon-bounce:hover {
+    animation: bounce 0.5s ease infinite;
+}
+
+/* Gradient text */
+.gradient-text {
+    background: linear-gradient(135deg, #0d9668 0%, #087a54 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Card shine effect */
+.card-shine {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-shine::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+.card-shine:hover::before {
+    opacity: 1;
+    left: 100%;
+}
+
+/* Decorative shapes for Why Choose Us section */
+.decorative-shape {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 90%;
+    height: 110%;
+    background-color: #204b78; /* Updated to primary color */
+    border-radius: 20px;
+    z-index: 0;
+}
+
+.decorative-dots {
+    position: absolute;
+    bottom: -60px;
+    left: -60px;
+    width: 240px; /* Increased size for more dots */
+    height: 240px; /* Increased size for more dots */
+    background-image: radial-gradient(circle, rgba(32, 75, 120, 0.5) 2px, transparent 2px); /* Updated to primary color rgba */
+    background-size: 20px 20px;
+    z-index: 0;
+}
+
+/* How It Works Section */
+.process-step {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.process-number-container {
+    position: absolute;
+    transform: translateX(-50%);
+    z-index: 20;
+}
+
+.process-number {
+    width: 40px;
+    height: 40px;
+    background-color: #0d9668;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 4px solid #ffffff; /* bg-white color */
+}
+
+.process-arrow-1, .process-arrow-2, .process-arrow-3 {
+    position: absolute;
+    z-index: 10;
+}
+
+.process-arrow-1::before, .process-arrow-2::before, .process-arrow-3::before,
+.process-arrow-1::after, .process-arrow-2::after, .process-arrow-3::after {
+    content: '';
+    position: absolute;
+    border-color: #0d9668;
+    border-style: dashed;
+    border-width: 0;
+}
+
+/* Arrow from 1 to 2 */
+.process-arrow-1 {
+    top: 50%;
+    right: 100%;
+    width: 100%;
+    height: 100%;
+}
+.process-arrow-1::before {
+    top: 50%;
+    left: 0;
+    width: 50%;
+    height: 50%;
+    border-bottom-width: 2px;
+    border-right-width: 2px;
+    border-radius: 0 0 40px 0;
+}
+.process-arrow-1::after {
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+    border-top-width: 2px;
+    border-left-width: 2px;
+    border-radius: 40px 0 0 0;
+}
+
+/* Arrow from 2 to 3 */
+.process-arrow-2 {
+    top: 50%;
+    right: 100%;
+    width: 100%;
+    height: 100%;
+}
+.process-arrow-2::before {
+    bottom: 50%;
+    left: 0;
+    width: 50%;
+    height: 50%;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-radius: 0 40px 0 0;
+}
+.process-arrow-2::after {
+    bottom: 0;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-radius: 0 0 0 40px;
+}
+
+/* Arrow from 3 to 4 */
+.process-arrow-3 {
+    top: 50%;
+    right: 100%;
+    width: 100%;
+    height: 100%;
+}
+.process-arrow-3::before {
+    top: 50%;
+    left: 0;
+    width: 50%;
+    height: 50%;
+    border-bottom-width: 2px;
+    border-right-width: 2px;
+    border-radius: 0 0 40px 0;
+}
+.process-arrow-3::after {
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+    border-top-width: 2px;
+    border-left-width: 2px;
+    border-radius: 40px 0 0 0;
+}
+
+/* Arrowheads */
+.process-arrow-1::after, .process-arrow-3::after {
+    content: '▶';
+    border: none;
+    color: #0d9668;
+    font-size: 14px;
+    transform: rotate(90deg);
+    top: -8px;
+    left: calc(100% - 8px);
+    width: auto;
+    height: auto;
+}
+.process-arrow-2::after {
+    content: '▶';
+    border: none;
+    color: #0d9668;
+    font-size: 14px;
+    transform: rotate(-90deg);
+    bottom: -8px;
+    left: calc(100% - 8px);
+    width: auto;
+    height: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .stats-section .stat-value {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+    }
+}
+
+/* Focus states for accessibility */
+a:focus,
+button:focus,
+input:focus {
+    outline: 2px solid #0d9668;
+    outline-offset: 2px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+}
