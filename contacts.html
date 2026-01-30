@@ -727,20 +727,6 @@
         }
     });
     </script>
-            const langNames = { 'en': 'EN', 'de': 'DE', 'tr': 'TR' };
-            langDisplay.textContent = langNames[currentLang] || 'EN';
-        }
-    });
-    
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(e) {
-        const selector = document.getElementById('footer-lang-selector');
-        const dropdown = document.getElementById('footer-lang-dropdown');
-        if (selector && dropdown && !selector.contains(e.target)) {
-            dropdown.classList.add('hidden');
-        }
-    });
-    </script>
 
     <script src="main.js"></script>
     

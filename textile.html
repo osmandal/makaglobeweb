@@ -637,13 +637,13 @@
 
         document.addEventListener('click', function(event) {
             const selector = document.getElementById('footer-lang-selector');
-    </script>
-    <script src="page-loader.js"></script>
-    <script src="lang.js"></script>
-</body>
-</html>     }
+            const dropdown = document.getElementById('footer-lang-dropdown');
+            if (selector && dropdown && !selector.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
         });
     </script>
+    <script src="page-loader.js"></script>
     <script src="lang.js"></script>
 </body>
 </html>

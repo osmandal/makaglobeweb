@@ -497,18 +497,6 @@
             }
         });
     </script>
-                langDisplay.textContent = savedLang.toUpperCase();
-            }
-        });
-
-        document.addEventListener('click', function(event) {
-            const selector = document.getElementById('footer-lang-selector');
-            const dropdown = document.getElementById('footer-lang-dropdown');
-            if (selector && dropdown && !selector.contains(event.target)) {
-                dropdown.classList.add('hidden');
-            }
-        });
-    </script>
 
     <script src="main.js"></script>
     <script src="page-loader.js"></script>
