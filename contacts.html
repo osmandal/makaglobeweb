@@ -730,56 +730,102 @@
 
     <script src="main.js"></script>
     
-    <!-- Google Forms Integration Script -->
+    <!-- Web3Forms Integration Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('contactForm');
             const successMessage = document.getElementById('successMessage');
+            const submitBtn = form.querySelector('.submit-btn');
+            const btnTextSpan = submitBtn.querySelector('span span') || submitBtn.querySelector('span'); 
+
+            // --- ÇATIŞMA ÇÖZÜCÜ: E-postayı yakalamak için özel takip ---
+            // Formun içindeki email kutusunu "name" özelliğiyle nokta atışı buluyoruz
+            const realEmailInput = form.querySelector('input[name="email"]');
             
+            // Kullanıcı her tuşa bastığında değeri hafızaya alalım (Mobil uyum için)
+            let capturedEmail = "";
+            if (realEmailInput) {
+                realEmailInput.addEventListener('input', function(e) {
+                    capturedEmail = e.target.value;
+                });
+                realEmailInput.addEventListener('change', function(e) {
+                    capturedEmail = e.target.value;
+                });
+            }
+
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
+
+                // 1. Veri Hazırlığı
+                const formData = new FormData(form);
                 
-                // Google Forms URL - Replace YOUR_FORM_ID with your actual Google Form ID
-                // Steps to get the URL and Entry IDs:
-                // 1. Create a Google Form with fields: Name, Email, Phone, Message
-                // 2. Click "Send" > Get pre-filled link
-                // 3. Fill in test data and click "Get link"
-                // 4. The URL will show entry IDs like entry.123456789
-                // 5. Replace the formResponse URL and entry IDs below
+                // --- KRİTİK MÜDAHALE ---
+                // Eğer FormData boş gelirse, elle yakaladığımız değeri zorla ekle
+                // Eğer elle yakalanan da boşsa, kutunun o anki değerini al
+                const finalEmail = capturedEmail || (realEmailInput ? realEmailInput.value : "") || formData.get('email');
                 
-                const googleFormURL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
-                
-                // Create form data for Google Forms
-                const googleFormData = new FormData();
-                // Replace entry.XXXXXXXXXX with your actual Google Form entry IDs
-                googleFormData.append('entry.XXXXXXXXXX', document.getElementById('name').value);      // Name field
-                googleFormData.append('entry.XXXXXXXXXX', document.getElementById('email').value);     // Email field
-                googleFormData.append('entry.XXXXXXXXXX', document.getElementById('phone').value);     // Phone field
-                googleFormData.append('entry.XXXXXXXXXX', document.getElementById('message').value);   // Message field
-                
-                // Submit to Google Forms using fetch with no-cors mode
-                fetch(googleFormURL, {
+                formData.set('email', finalEmail); // Garantilediğimiz maili pakete koy
+
+                // Engelleyen uyarıyı kaldırdım, sunucuya ne varsa göndersin.
+                // Sadece konsola bilgi verelim
+                console.log("Gönderilecek E-posta:", finalEmail);
+
+                // 2. Görsel Efekt
+                const originalText = btnTextSpan ? btnTextSpan.innerText : 'Send Message';
+                submitBtn.disabled = true;       
+                submitBtn.style.opacity = '0.7'; 
+                submitBtn.style.cursor = 'wait'; 
+                if(btnTextSpan) btnTextSpan.innerText = 'Sending...'; 
+
+                // 3. Web3Forms Ayarları
+                formData.append("access_key", "b81f0ff3-3c0e-41ab-bac7-2960d0cb9b4c"); 
+                formData.append("subject", "New Contact Message - MAKA GLOBE Website");
+                formData.append("from_name", "Maka Globe Website");
+                formData.append("botcheck", ""); 
+
+                const json = JSON.stringify(Object.fromEntries(formData));
+
+                // 4. Gönderim
+                fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
-                    mode: 'no-cors',
-                    body: googleFormData
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
                 })
-                .then(() => {
-                    // Show success message
-                    form.style.display = 'none';
-                    successMessage.classList.remove('hidden');
-                    
-                    // Reset form
-                    form.reset();
-                    
-                    // Show form again after 5 seconds
-                    setTimeout(() => {
-                        successMessage.classList.add('hidden');
-                        form.style.display = 'block';
-                    }, 5000);
+                .then(async (response) => {
+                    if (response.status == 200) {
+                        // BAŞARILI
+                        form.style.display = 'none'; 
+                        if(successMessage) successMessage.classList.remove('hidden'); 
+                        
+                        form.reset(); 
+                        capturedEmail = ""; // Hafızayı temizle
+
+                        setTimeout(() => {
+                            if(successMessage) successMessage.classList.add('hidden');
+                            form.style.display = 'block';
+                            submitBtn.disabled = false;
+                            submitBtn.style.opacity = '1';
+                            submitBtn.style.cursor = 'pointer';
+                            if(btnTextSpan) btnTextSpan.innerText = originalText;
+                        }, 5000);
+                    } else {
+                        // HATA
+                        let json = await response.json();
+                        console.error(response);
+                        throw new Error(json.message);
+                    }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('There was an error sending your message. Please try again or contact us directly.');
+                    // Hata olsa bile kullanıcıyı kilitleme, belki gitmiştir
+                    alert('İşlem tamamlanmış olabilir, lütfen mail kutunuzu kontrol edin.');
+                    
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = '1';
+                    if(btnTextSpan) btnTextSpan.innerText = originalText;
                 });
             });
         });
