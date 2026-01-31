@@ -460,6 +460,41 @@ const translations = {
         de: "New York | Miami | Istanbul | Bahrain",
         tr: "New York | Miami | İstanbul | Bahreyn"
     },
+    "footer.home": {
+        en: "Home",
+        de: "Startseite",
+        tr: "Ana Sayfa"
+    },
+    "footer.aboutUs": {
+        en: "About Us",
+        de: "Über Uns",
+        tr: "Hakkımızda"
+    },
+    "footer.ourBrands": {
+        en: "Our Brands",
+        de: "Unsere Marken",
+        tr: "Markalarımız"
+    },
+    "footer.contact": {
+        en: "Contact",
+        de: "Kontakt",
+        tr: "İletişim"
+    },
+    "footer.logistic": {
+        en: "Logistic",
+        de: "Logistik",
+        tr: "Lojistik"
+    },
+    "footer.food": {
+        en: "Food",
+        de: "Lebensmittel",
+        tr: "Gıda"
+    },
+    "footer.textile": {
+        en: "Textile",
+        de: "Textilien",
+        tr: "Tekstil"
+    },
 
     // ==================== ABOUT US PAGE ====================
     "about.hero.description": {
