@@ -40,7 +40,7 @@
     function applyTranslations(lang) {
         // Check if translations object exists
         if (typeof translations === 'undefined') {
-            console.error('Translations object not found. Make sure translations.js is loaded first.');
+            console.error('Translations object not found. Make sure Assets/js/translations.js is loaded first.');
             return;
         }
 
