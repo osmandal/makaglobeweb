@@ -1,5 +1,10 @@
-// Page Loader - Simple and Fast
+// Page Loader - Simple and Fast (Only on first visit per session)
 (function() {
+    // Check if loader has already been shown in this session
+    if (sessionStorage.getItem('makaglobe_loader_shown')) {
+        return; // Don't show loader again
+    }
+    
     var loaderHidden = false;
     
     // Create loader
@@ -18,6 +23,10 @@
     function hideLoader() {
         if (loaderHidden) return;
         loaderHidden = true;
+        
+        // Mark as shown for this session
+        sessionStorage.setItem('makaglobe_loader_shown', 'true');
+        
         loader.style.transition = 'opacity 0.3s';
         loader.style.opacity = '0';
         setTimeout(function() {
