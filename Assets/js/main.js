@@ -36,12 +36,32 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close mobile menu when clicking on a link
     const mobileLinks = mobileMenu?.querySelectorAll('a');
     mobileLinks?.forEach(link => {
-        link.addEventListener('click', function() {
-            mobileMenu.style.maxHeight = '0px';
-            mobileMenu.style.opacity = '0';
-            mobileMenu.classList.remove('open');
-            const icon = mobileMenuBtn.querySelector('svg');
-            icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            
+            // If it's a navigation to another page (not anchor link)
+            if (href && !href.startsWith('#') && !href.startsWith('javascript:')) {
+                e.preventDefault();
+                
+                // Close menu with animation
+                mobileMenu.style.maxHeight = '0px';
+                mobileMenu.style.opacity = '0';
+                mobileMenu.classList.remove('open');
+                const icon = mobileMenuBtn.querySelector('svg');
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+                
+                // Wait for menu close animation, then navigate
+                setTimeout(function() {
+                    window.location.href = href;
+                }, 300);
+            } else {
+                // For anchor links, just close the menu
+                mobileMenu.style.maxHeight = '0px';
+                mobileMenu.style.opacity = '0';
+                mobileMenu.classList.remove('open');
+                const icon = mobileMenuBtn.querySelector('svg');
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+            }
         });
     });
 
